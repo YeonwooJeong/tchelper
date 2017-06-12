@@ -77,9 +77,8 @@ public class Parse {
         driver.findElement(By.className("login-link")).click();
         
         
-        driver.findElement(By.className("text medium-field")).sendKeys(id);
-        Thread.sleep(1000);
-        driver.findElement(By.className("login-form-password")).sendKeys(pw);
+        driver.findElement(By.id("login-form-username")).sendKeys(id);
+        driver.findElement(By.id("login-form-password")).sendKeys(pw);
 		Thread.sleep(1000);
 		driver.findElement(By.id("login-form-submit")).click();
         
