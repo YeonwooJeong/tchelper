@@ -20,16 +20,23 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class Parse {
     private static WebDriver driver;
 	
-	static String receiptNum="";
-	static String url="https://kor.tellburgerking.com";
-	static int speed_int = 100;
+	static String bts_url="";
+	static int line;
+	static String txt_note_row="";
+	static String txt_result_row_start="";
+	static String txt_result_row_end="";
 	
-	public void inputNumber(String number, String txt_speed){
+	
+	public void inputUrl(String bts_url, String txt_note_row, String txt_result_row_start, String txt_result_row_end){
 	      // 텍스트 필드값 가져오기
-		receiptNum = number;
-		System.out.println("speed.equals "+txt_speed );
-		speed_int = Integer.parseInt(txt_speed);	
-		
+		bts_url = bts_url;
+		txt_note_row = txt_note_row;
+		txt_result_row_start = txt_result_row_start;
+		txt_result_row_end = txt_result_row_end;
+		System.out.println("txt_note_row "+txt_note_row );
+		System.out.println("txt_result_row_start "+txt_result_row_start );
+		System.out.println("txt_result_row_end "+txt_result_row_end );
+		System.out.println("bts_url "+bts_url );
 		
 	}
 	
@@ -49,7 +56,7 @@ public class Parse {
 		}
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-		driver.get(url); 
+		driver.get(bts_url); 
 		 driver.manage().window().maximize();
 //	    System.setProperty("selenide.browser", "Chrome");
 //	    open(url);
@@ -62,7 +69,7 @@ public class Parse {
     	WebElement NextButton = driver.findElement(By.id("NextButton"));
     	NextButton.click();   
     	
-        driver.findElement(By.id("CN1")).sendKeys(receiptNum);  //ID
+        driver.findElement(By.className("login-link")).sendKeys("nt11062");  //ID
 		Thread.sleep(1000);
 		driver.findElement(By.id("NextButton")).click();
         
