@@ -13,19 +13,19 @@ class runner extends Thread{
 	Ui simul = new Ui();
 	public static    JLabel labelIntroduce;
 //	public static survey survey = new survey();
-	public  static  JTextField tf_receiptNum, tf_speed;;
+	public  static  JTextField tf_btsUrl, note_row;;
 	public static JLabel submit,number;
 	public boolean check = true;
 
 	
 	public void run(){
         // 텍스트 필드값 가져오기
-        String receiptNum = tf_receiptNum.getText();
-    	String txt_speed = tf_speed.getText();
+        String receiptNum = tf_btsUrl.getText();
+    	String txt_speed = note_row.getText();
         if(txt_speed.equals("")){
         	txt_speed = "100";
         }else{
-        	txt_speed = tf_speed.getText();
+        	txt_speed = note_row.getText();
         }
          
         try {
@@ -51,7 +51,7 @@ class JPanel033 extends JPanel{        // 3번째 패널
 	// 클래스 멤버 필드 설정
 	
 	private    JLabel name;
-    private    JLabel id, speed;
+    private    JLabel url, note;
     private    JTextField tf_speed;
     private JLabel image;
     private Font f1, f2, f3;
@@ -70,30 +70,30 @@ class JPanel033 extends JPanel{        // 3번째 패널
         
         // 라벨
         f1 = new Font("궁서", Font.BOLD, 15);        
-        name = new JLabel("단품으로 세트먹자!");
+        name = new JLabel("TC Helper");
         name.setFont(f1);
         name.setSize(200, 30);   
         name.setLocation(10, 0);
         
-        speed = new JLabel("진행속도(ms)");
-        speed.setSize(230, 20);   
-        speed.setLocation(165, 50);
-        add(speed);
+        note = new JLabel("비고 열 지정");
+        note.setSize(230, 20);   
+        note.setLocation(165, 50);
+        add(note);
         
-        runner.tf_speed = new JTextField();
-        runner.tf_speed.setBounds(250, 50,50, 20);
-        runner.tf_speed.setText("100");
-        add(runner.tf_speed);
+        runner.note_row = new JTextField();
+        runner.note_row.setBounds(250, 50,50, 20);
+        runner.note_row.setText("100");
+        add(runner.note_row);
 
 //        image.setSize(40,50);
 //        image.setBounds(310,5,60,60);
         
-        id = new JLabel("설문조사코드: ");
-        id.setBounds(10,30,100,20);
+        url = new JLabel("BTS 필터 URL: ");
+        url.setBounds(10,30,100,20);
         
         // 텍스트 필드
-        runner.tf_receiptNum = new JTextField();             
-        runner.tf_receiptNum.setBounds(100,30,200,20);
+        runner.tf_btsUrl = new JTextField();             
+        runner.tf_btsUrl.setBounds(100,30,200,20);
         
         thread.labelIntroduce = new JLabel("결과");
         thread.labelIntroduce.setBounds(10,50,280,20);
@@ -112,8 +112,8 @@ class JPanel033 extends JPanel{        // 3번째 패널
       
         add(thread.labelIntroduce);
         
-        add(id);
-        add(thread.tf_receiptNum);
+        add(url);
+        add(thread.tf_btsUrl);
         
 //        add(image);
         
@@ -155,7 +155,7 @@ public class Ui extends JFrame{
     public static void main(String[] args) {
         Ui win = new Ui();
         
-        win.setTitle("BurgerKing Survey Automation");
+        win.setTitle("TC Helper");
         win.jpanel03 = new JPanel033();
         
         URL imageURL = Ui.class.getClassLoader().getResource("burger.png");
