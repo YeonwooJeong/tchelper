@@ -28,7 +28,6 @@ class runner extends Thread{
     	String txt_id = tf_id.getText();
     	
     	String pw = "";
-    	char[] txt_pw = tf_pw.getPassword();
         char[] secret_pw = tf_pw.getPassword();
         for(char cha : secret_pw){
         	Character.toString(cha);
@@ -40,16 +39,18 @@ class runner extends Thread{
         }else{
         	txt_note_row = tf_note_row.getText();
         }
-         
+        parse.inputUrl(txt_btsUrl, txt_note_row,txt_result_row_start,txt_result_row_end);
         try {
 			parse.setUp();
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-        parse.inputUrl(txt_btsUrl, txt_note_row,txt_result_row_start,txt_result_row_end);
+        parse.login(txt_id, pw);
+        
+     
         try {
-//			survey.run();
+			parse.run();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -90,7 +91,6 @@ class JPanel033 extends JPanel{        // 3번째 패널
         
         runner.tf_id = new JTextField();
         runner.tf_id.setBounds(40, 30,50, 20);
-        runner.tf_id.setText("id");
         add(runner.tf_id);
         
 
@@ -102,7 +102,6 @@ class JPanel033 extends JPanel{        // 3번째 패널
         runner.tf_pw = new JPasswordField();       
         runner.tf_pw.setEchoChar('*');
         runner.tf_pw.setBounds(140, 30,50, 20);
-        runner.tf_pw.setText("pw");
         add(runner.tf_pw);
         
         
@@ -113,7 +112,6 @@ class JPanel033 extends JPanel{        // 3번째 패널
         // 텍스트 필드
         runner.tf_btsUrl = new JTextField();             
         runner.tf_btsUrl.setBounds(100,50,200,20);
-        runner.tf_btsUrl.setText("url");
         
                
         name = new JLabel("TC Helper");

@@ -25,14 +25,22 @@ public class Parse {
 	static String txt_note_row="";
 	static String txt_result_row_start="";
 	static String txt_result_row_end="";
+	static String id="";
+	static String pw="";
+	
+	public void login(String idTest, String pwText){
+		// 
+		id = idTest;
+		pw = pwText;
+	}
 	
 	
-	public void inputUrl(String bts_url, String txt_note_row, String txt_result_row_start, String txt_result_row_end){
+	public void inputUrl(String url, String note_row, String result_row_start, String result_row_end){
 	      // 텍스트 필드값 가져오기
-		bts_url = bts_url;
-		txt_note_row = txt_note_row;
-		txt_result_row_start = txt_result_row_start;
-		txt_result_row_end = txt_result_row_end;
+		bts_url = url;
+		txt_note_row = note_row;
+		txt_result_row_start = result_row_start;
+		txt_result_row_end = result_row_end;
 		System.out.println("txt_note_row "+txt_note_row );
 		System.out.println("txt_result_row_start "+txt_result_row_start );
 		System.out.println("txt_result_row_end "+txt_result_row_end );
@@ -65,25 +73,16 @@ public class Parse {
     }
     
     public static void login() throws InterruptedException   {
-    	boolean boo = true;
-    	WebElement NextButton = driver.findElement(By.id("NextButton"));
-    	NextButton.click();   
-    	
-        driver.findElement(By.className("login-link")).sendKeys("nt11062");  //ID
-		Thread.sleep(1000);
-		driver.findElement(By.id("NextButton")).click();
+//    	WebElement loginButton = driver.findElement(By.className("login-link"));
+        driver.findElement(By.className("login-link")).click();
         
-		
-		int i = 0;
-        while(boo){
-        	try{
-
-        	}catch (NoSuchElementException e){
-        		
-        	}
-           
- 
-        }
+        
+        driver.findElement(By.className("text medium-field")).sendKeys(id);
+        Thread.sleep(1000);
+        driver.findElement(By.className("login-form-password")).sendKeys(pw);
+		Thread.sleep(1000);
+		driver.findElement(By.id("login-form-submit")).click();
+        
         
     }
     
