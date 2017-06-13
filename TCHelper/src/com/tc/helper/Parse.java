@@ -1,6 +1,8 @@
 package com.tc.helper;
  
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
  
 @FixMethodOrder (MethodSorters.NAME_ASCENDING)
@@ -27,6 +30,10 @@ public class Parse {
 	static String txt_result_row_end="";
 	static String id="";
 	static String pw="";
+	
+	static ArrayList<String> mArrayList =  new ArrayList<String>();
+
+	
 	
 	public void login(String idTest, String pwText){
 		// 
@@ -51,7 +58,9 @@ public class Parse {
  
     @BeforeClass
     public static void setUp() throws Exception {
-    	
+//    	final ChromeOptions options = new ChromeOptions();
+//    	 options.addArguments("start-fullscreen");
+    	 
     	File file = new File("c:/chromedriver.exe");
     	File file2 = new File("d:/chromedriver.exe");
    		if(file.isFile()){         
@@ -64,10 +73,10 @@ public class Parse {
 		}
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+//        final ChromeDriver driver = new ChromeDriver(options);
 		driver.get(bts_url); 
-		 driver.manage().window().maximize();
-//	    System.setProperty("selenide.browser", "Chrome");
-//	    open(url);
+//		 driver.manage().window().maximize();
+		  
 		
 
     }
@@ -85,10 +94,34 @@ public class Parse {
         
     }
     
+    
+    
+    public static void issueNumberParse() throws InterruptedException   {
+    	
+        
+        WebElement issueList = driver.findElement(By.id("issuetable"));
+        List<WebElement> numberList = issueList.findElements(By.className("issuerow"));
+        System.out.println(numberList.size());
+        String text;
+        int i=0;
+        for(WebElement item : numberList){
+        	text = item.findElement(By.className("issuekey")).getText();
+        	System.out.println(text);
+        	mArrayList.add(text);
+        	i++;
+        	text ="";
+        }
+        System.out.println(mArrayList.get(0));
+        	
+        
+        
+    }
+
  
     @Test
     public static void run() throws Exception {
     	login();
+    	issueNumberParse();
 		Thread.sleep(500);
     }
  
