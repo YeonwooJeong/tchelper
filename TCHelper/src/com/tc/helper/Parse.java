@@ -106,12 +106,14 @@ public class Parse {
         int i=0;
         for(WebElement item : numberList){
         	text = item.findElement(By.className("issuekey")).getText();
-        	System.out.println(text);
         	mArrayList.add(text);
+        	System.out.println(mArrayList.get(i));
         	i++;
+        	if(i > 50)
+        		break;
         	text ="";
         }
-        System.out.println(mArrayList.get(0));
+        
         	
         
         
@@ -120,7 +122,7 @@ public class Parse {
  
     @Test
     public static void run() throws Exception {
-    	login();
+//    	login();// 생략
     	issueNumberParse();
 		Thread.sleep(500);
     }

@@ -19,8 +19,11 @@ class runner extends Thread{
 
 	
 	public void run(){
+		
+		
         // 텍스트 필드값 가져오기
         String txt_btsUrl = tf_btsUrl.getText();
+        
     	String txt_note_row = tf_note_row.getText();
     	String txt_result_row_start = tf_result_row_start.getText();
     	String txt_result_row_end = tf_result_row_end.getText();
@@ -33,13 +36,27 @@ class runner extends Thread{
         	Character.toString(cha);
         	pw += (pw.equals("")) ? ""+cha+"" : ""+cha+"";
         }
+        
+        //뒷 주소 자르기 /issues/?filter=133109
+        String txt = "http://bts1.navercorp.com/nhnbts";
+        int length = txt.length();
+        String url= txt_btsUrl.substring(length, txt_btsUrl.length());
+        
+        //bts1,2,3
+        int temp2 = txt_btsUrl.indexOf(".navercorp");
+        String bts= txt_btsUrl.substring(7,temp2);
+        
+        
+        String loginUrl ="http://"+bts+".navercorp.com/nhnbts/login.jsp?os_username="+txt_id+"&os_password="+pw+"&os_destination="+url+"";
+        
+
     	
         if(txt_note_row.equals("")){
         	txt_note_row = "100";
         }else{
         	txt_note_row = tf_note_row.getText();
         }
-        parse.inputUrl(txt_btsUrl, txt_note_row,txt_result_row_start,txt_result_row_end);
+        parse.inputUrl(loginUrl, txt_note_row,txt_result_row_start,txt_result_row_end);
         try {
 			parse.setUp();
 		} catch (Exception e2) {
