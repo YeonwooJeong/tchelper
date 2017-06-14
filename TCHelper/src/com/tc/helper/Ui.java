@@ -1,7 +1,7 @@
 package com.tc.helper;
 
 import javax.swing.*;
-
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,6 +16,7 @@ class runner extends Thread{
 	public static JPasswordField tf_pw;
 	public static JLabel submit,number;
 	public boolean check = true;
+	
 
 	
 	public void run(){
@@ -82,12 +83,14 @@ class JPanel033 extends JPanel{        // 3번째 패널
 	// 클래스 멤버 필드 설정
 	
 	private    JLabel name;
-    private    JLabel url, note,row,and,id,pw;
+    private    JLabel url, note,row,and,id,pw,path;
     private JLabel image;
     private Font f1, f2, f3;
+    private JFileChooser jfc = new JFileChooser();
     
     private    JButton buttonSave;
     private    JButton buttonStop;
+    private JButton jbt_open;
     public boolean check = true; 
     
     public JPanel033() {         // 3번째 패널 생성자
@@ -182,15 +185,28 @@ class JPanel033 extends JPanel{        // 3번째 패널
             
         // 버튼        
         buttonSave = new JButton("시작");
-        buttonSave.setBounds(80,130,100,20);
+        buttonSave.setBounds(80,180,100,20);
         buttonSave.addActionListener(new EventHandlerSave());   
         
         buttonStop = new JButton("정지");
-        buttonStop.setBounds(220,130,100,20);
+        buttonStop.setBounds(220,180,100,20);
         buttonStop.addActionListener(new EventHandlerStop());   
         
         add(name);
       
+        
+        //파일경로
+        jbt_open = new JButton("TC 선택");
+        jbt_open.setBounds(10,120,100,20);
+        add(jbt_open);
+        jbt_open.addActionListener(new OpenActionListener());
+        jfc.setMultiSelectionEnabled(false);
+        
+        path = new JLabel("TC 경로");
+        path.setBounds(10,130,70,20);
+        path.setSize(350,50);
+        add(path);
+
 //        add(thread.labelIntroduce);
         
         add(url);
@@ -202,6 +218,33 @@ class JPanel033 extends JPanel{        // 3번째 패널
         add(buttonStop);
         
     }
+    
+    // Open 메뉴아이템이 선택되면 호출되는 Action 리스너
+	class OpenActionListener implements ActionListener {
+		JFileChooser chooser;
+
+		OpenActionListener() {
+			chooser = new JFileChooser(); // 파일 다이얼로그 생성
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel Files","xls","xlsx"); 
+			chooser.setFileFilter(filter); // 파일 다이얼로그에 파일 필터 설정
+
+			// 파일 다이얼로그 출력
+			int ret = chooser.showOpenDialog(null);
+			if (ret != JFileChooser.APPROVE_OPTION) { // 사용자가 창을 강제로 닫았거나 취소 버튼을 누른 경우
+				return;
+			}
+
+			// 사용자가 파일을 선택하고 "열기" 버튼을 누른 경우
+			String filePath = chooser.getSelectedFile().getPath(); // 파일 경로명을 알아온다.
+			path.setText(filePath);
+		}
+	}
+
+
+    
     
     class EventHandlerSave implements ActionListener{     // 
         public void actionPerformed(ActionEvent e){
@@ -247,7 +290,7 @@ public class Ui extends JFrame{
 
         win.add(win.jpanel03);
 
-        win.setSize(400,200);
+        win.setSize(400,250);
         win.setVisible(true);
         win.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
